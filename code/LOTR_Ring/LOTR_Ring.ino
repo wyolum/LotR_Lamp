@@ -1,9 +1,13 @@
 #include <Adafruit_NeoPixel.h>
+
+#include <ADCTouch.h>
+int ref0, ref1;     //reference values to remove offset
+
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
 
-#define PIN 13
+#define PIN 3
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
@@ -13,7 +17,7 @@
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip(60, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip(64, PIN, NEO_GRB + NEO_KHZ800);
 
 // IMPORTANT: To reduce NeoPixel burnout risk, add 1000 uF capacitor across
 // pixel power leads, add 300 - 500 Ohm resistor on first pixel's data input
@@ -30,11 +34,35 @@ void setup() {
   strip.begin();
   strip.setBrightness(80);
   strip.show(); // Initialize all pixels to 'off'
+
+  // No pins to setup, pins can still be used regularly, although it will affect readings
+
+    ref0 = ADCTouch.read(A0, 500);    //create reference values to 
+    ref1 = ADCTouch.read(A1, 500);    //account for the capacitance of the pad
+  
 }
 
 void loop() {
 uint16_t i, j, k;
 uint16_t f=255;
+
+    int value0 = ADCTouch.read(A0);   //no second parameter
+    int value1 = ADCTouch.read(A1);   //   --> 100 samples
+
+    value0 -= ref0;       //remove offset
+    value1 -= ref1;
+
+    Serial.print(value0 > 40);    //send (boolean) pressed or not pressed
+    Serial.print("\t");           //use if(value > threshold) to get the state of a button
+
+    Serial.print(value1 > 40);
+    Serial.print("\t\t");
+
+    Serial.print(value0);             //send actual reading
+    Serial.print("\t");
+  
+    Serial.println(value1);
+    delay(100);
 
     five_led_snake();
     five_led_snake();
