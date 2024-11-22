@@ -32,7 +32,7 @@ void setup() {
   // End of trinket special code
   Serial.begin(9600); // open the serial port at 9600 bps
   strip.begin();
-  strip.setBrightness(80);
+  strip.setBrightness(255);
   strip.show(); // Initialize all pixels to 'off'
 
   // No pins to setup, pins can still be used regularly, although it will affect readings
@@ -47,7 +47,10 @@ uint16_t i, j, k;
 uint16_t f=255;
 
     int value0 = ADCTouch.read(A0);   //no second parameter
-    int value1 = ADCTouch.read(A1);   //   --> 100 samples
+    int value1 = ADCTouch.r
+    
+    
+    ead(A1);   //   --> 100 samples
 
     value0 -= ref0;       //remove offset
     value1 -= ref1;
@@ -68,7 +71,7 @@ uint16_t f=255;
     five_led_snake();
     
       for(i=0; i< strip.numPixels(); i++) {
-      strip.setPixelColor(i,255,85,0);
+      strip.setPixelColor(i,255,165,0); //original color is 255,85,0)
       strip.show();
       delay(30);
       }
@@ -80,7 +83,7 @@ uint16_t f=255;
       }
 
       for(i=0; i< strip.numPixels(); i++) {
-      strip.setPixelColor(i,255,85,0);
+      strip.setPixelColor(i,255,165,0);
       strip.show();
       delay(30);
       }
@@ -92,7 +95,7 @@ uint16_t f=255;
       }
 
       for(i=0; i< strip.numPixels(); i++) {
-      strip.setPixelColor(i,255,85,0);
+      strip.setPixelColor(i,255,165,0);
       strip.show();
       delay(30);
       }
@@ -109,11 +112,11 @@ strip.clear();
 void five_led_snake(){
 
     for(int i=0; i< strip.numPixels(); i++) {
-      strip.setPixelColor(0+i,255,80,0);
-      strip.setPixelColor(1+i,255,80,0);
-      strip.setPixelColor(2+i,255,80,0);
-      strip.setPixelColor(3+i,255,80,0);
-      strip.setPixelColor(4+i,255,80,0);
+      strip.setPixelColor(0+i,255,165,0); // original color is 255,80 or 85,0
+      strip.setPixelColor(1+i,255,165,0);
+      strip.setPixelColor(2+i,255,165,0);
+      strip.setPixelColor(3+i,255,165,0);
+      strip.setPixelColor(4+i,255,165,0);
       strip.show();
       delay(50);
       strip.setPixelColor(0+i,0,0,0);
@@ -123,19 +126,19 @@ void five_led_snake(){
       strip.setPixelColor(4+i,0,0,0);
       strip.show();
       if (i>55) {
-      strip.setPixelColor(0,255,80,0);
+      strip.setPixelColor(0,255,165,0);
       }
       if (i>56) {
-      strip.setPixelColor(1,255,80,0);
+      strip.setPixelColor(1,255,165,0);
       }
       if (i>57) {
-      strip.setPixelColor(2,255,80,0);
+      strip.setPixelColor(2,255,165,0);
       }
       if (i>58) {
-      strip.setPixelColor(3,255,80,0);
+      strip.setPixelColor(3,255,165,0);
       }
       if (i>59) {
-      strip.setPixelColor(4,255,80,0);
+      strip.setPixelColor(4,255,165,0);
       }
     }
   

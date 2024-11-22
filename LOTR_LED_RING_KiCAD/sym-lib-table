@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "LOTR")(type "KiCad")(uri "${KIPRJMOD}/LOTR.kicad_sym")(options "")(descr ""))
+)
